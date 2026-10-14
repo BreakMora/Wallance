@@ -34,3 +34,7 @@ build/
 
 # application-local.properties
 application-local.properties
+
+# Postman and collections
+.postman
+postman

@@ -1,5 +1,7 @@
 package com.wallance.api.models.dto;
 
+import java.util.Locale;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -11,5 +13,8 @@ public record  LoginRequestDTO(
     @NotBlank (message = "The password field is required.")
     String password
 ){
-
+    public LoginRequestDTO {
+    if (email != null)
+        email = email.trim().toLowerCase(Locale.ROOT);
+    }
 }
