@@ -1,5 +1,6 @@
 package com.wallance.api.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequest){
-        return ResponseEntity.ok(authenticationService.login(loginRequest));
+        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.login(loginRequest));
     }
 
 }

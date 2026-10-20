@@ -1,17 +1,13 @@
 package com.wallance.api.service;
 
-import java.util.Optional;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.wallance.api.exception.BusinessException;
-import com.wallance.api.exception.ResourceNotFoundException;
 import com.wallance.api.mapper.UserMapper;
 import com.wallance.api.models.dto.AuthenticationResponseDTO;
 import com.wallance.api.models.dto.LoginRequestDTO;
-import com.wallance.api.models.dto.UserDTO;
 import com.wallance.api.models.entity.User;
 import com.wallance.api.repository.IUserRepository;
 import com.wallance.api.security.JwtService;
@@ -37,10 +33,6 @@ class AuthenticationService implements IAuthenticationService{
 
         // retorna el JWT en formato cadena al frontend
         return new AuthenticationResponseDTO(jwtService.TokenGenerator(userMapper.toUserDTO(user)));
-    }
-
-    private UserDTO findUserByEmail(String email){
-        return this.userRepository.findByEmail(email).map(userMapper::toUserDTO).orElseThrow(() -> new ResourceNotFoundException("User", email));
     }
 
     private void validatePassword(String passwordRaw, String passwordHash){
