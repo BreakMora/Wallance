@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,15 +47,27 @@ public class UserController {
     }
 
     @PostMapping ("")
-    public ResponseEntity<UserDTO> addUser(@Valid @RequestBody CreateUserDTO newUserDTO){
+    public ResponseEntity<UserDTO> addUser(
+        @Valid 
+        @RequestBody CreateUserDTO newUserDTO // Recibe los datos del usuario
+    ){
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUserData(newUserDTO));
     }
 
     @PatchMapping ("/{id}")
     public ResponseEntity<UserDTO> updateUser(
-        @PathVariable Integer id,
-        @RequestBody UpdateUserDTO updateUserDTO
+        @Valid
+        @PathVariable Integer id, // Recibe el id del usuari que se va actualzar
+        @RequestBody UpdateUserDTO updateUserDTO // Recibe los datos para actualizar
     ){
         return ResponseEntity.status(HttpStatus.OK).body(userService.modifyUser(id, updateUserDTO));
+    }
+
+    @DeleteMapping ("/{id}")
+    public ResponseEntity<Void> deleteUser(
+        @PathVariable Integer id
+    ){
+        userService.deleteUser(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

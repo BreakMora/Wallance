@@ -81,6 +81,12 @@ public class UserService implements IUserService {
         return userMapper.toUserDTO(user);
     }
 
+    @Override
+    public void deleteUser(Integer id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuario", id));
+        userRepository.delete(user);
+    }
+
     private void assertEmailAvailable(String email){
         if(userRepository.existsByEmail(email))
             throw new BusinessException(HttpStatus.CONFLICT, "The email is already in use.");

@@ -13,4 +13,5 @@ public interface IUserService {
     public UserDTO getUserData(UserDTO user);
     public UserDTO saveUserData(CreateUserDTO newUserDTO);
     public UserDTO modifyUser(Integer id, UpdateUserDTO updateUserDTO);
+    public void deleteUser(Integer id);
 }
